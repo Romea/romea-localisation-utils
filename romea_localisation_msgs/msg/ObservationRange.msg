@@ -1,0 +1,4 @@
+float64 range
+float64 range_std
+geometry_msgs/Vector3 initiator_antenna_position
+geometry_msgs/Vector3 responder_antenna_position

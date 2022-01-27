@@ -1,0 +1,2 @@
+std_msgs/Header header
+ObservationAngularSpeed observation_angular_speed
