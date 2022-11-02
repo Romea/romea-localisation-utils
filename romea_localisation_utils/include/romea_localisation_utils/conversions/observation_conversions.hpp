@@ -15,10 +15,10 @@ namespace romea
 {
 
 template <typename ObservationType, typename MessageType>
-ObservationType extractObs(const MessageType & msg)
+ObservationType extract_obs(const MessageType & msg)
 {
   ObservationType observation;
-  extractObs(msg,observation);
+  extract_obs(msg,observation);
   return observation;
 }
 

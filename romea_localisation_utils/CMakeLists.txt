@@ -30,7 +30,8 @@ find_package(romea_common_utils REQUIRED)
 find_package(romea_localisation_msgs REQUIRED)
 
 
-add_library(${PROJECT_NAME}
+add_library(${PROJECT_NAME} SHARED
+   src/conversions/localisation_status_conversions.cpp
    src/conversions/observation_angular_speed_conversions.cpp
    src/conversions/observation_attitude_conversions.cpp
    src/conversions/observation_course_conversions.cpp
@@ -40,6 +41,7 @@ add_library(${PROJECT_NAME}
    src/conversions/observation_position_conversions.cpp
    src/conversions/observation_range_conversions.cpp
    src/conversions/observation_twist_conversions.cpp
+   src/filter/localisation_parameters.cpp
  )
 
 ament_target_dependencies(${PROJECT_NAME}
@@ -97,70 +99,3 @@ if(BUILD_TESTING)
 endif()
 
 ament_package()
-
-
-
-
-
-
-#cmake_minimum_required(VERSION 3.0.2)
-#project(romea_localisation_utils)
-
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weffc++ -Wall -Wextra -O3")
-#set(CMAKE_CXX_STANDARD 17)
-#set(CMAKE_CXX_STANDARD_REQUIRED ON)
-#set(CMAKE_CXX_EXTENSIONS OFF)
-
-########################
-### Find dependencies ##
-########################
-#set(${PROJECT_NAME}_CATKIN_DEPS
-#  romea_common_utils
-#  romea_localisation_msgs
-#  romea_lifecycle
-#  roscpp)
-
-#find_package(catkin REQUIRED COMPONENTS ${${PROJECT_NAME}_CATKIN_DEPS})
-#find_package(romea_core_common REQUIRED)
-#find_package(romea_core_filtering REQUIRED)
-#find_package(romea_core_localisation REQUIRED)
-
-####################################
-### catkin specific configuration ##
-####################################
-#catkin_package(
-#  INCLUDE_DIRS include ${romea_localisation_INCLUDE_DIRS}
-#  LIBRARIES ${PROJECT_NAME}
-#  CATKIN_DEPENDS ${${PROJECT_NAME}_CATKIN_DEPS})
-
-############
-### Build ##
-############
-#include_directories(
-#  include
-#  SYSTEM ${catkin_INCLUDE_DIRS}
-#  SYSTEM ${romea_localisation_INCLUDE_DIRS}
-#  )
-
-#add_library(romea_localisation_utils
-#  src/filter/localisation_application_nodelet_base.cpp
-#  src/filter/localisation_filter_params.cpp
-#  src/conversions/observation_angular_speed_conversions.cpp
-#  src/conversions/observation_attitude_conversions.cpp
-#  src/conversions/observation_course_conversions.cpp
-#  src/conversions/observation_linear_speed_conversions.cpp
-#  src/conversions/observation_linear_speeds_conversions.cpp
-#  src/conversions/observation_pose_conversions.cpp
-#  src/conversions/observation_position_conversions.cpp
-#  src/conversions/observation_range_conversions.cpp
-#  src/conversions/observation_twist_conversions.cpp
-#  )
-
-#target_link_libraries(romea_localisation_utils
-#  ${catkin_LIBRARIES}
-#  romea_core_localisation::romea_core_localisation
-#  )
-
-#if(CATKIN_ENABLE_TESTING)
-#  add_subdirectory(test)
-#endif(CATKIN_ENABLE_TESTING)

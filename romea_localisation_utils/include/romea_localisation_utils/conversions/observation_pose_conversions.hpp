@@ -10,23 +10,23 @@ namespace romea
 {
 
 void to_ros_msg(const Pose2D & pose,
-              romea_localisation_msgs::msg::ObservationPose2D &msg);
+                romea_localisation_msgs::msg::ObservationPose2D &msg);
 
 void to_ros_msg(const rclcpp::Time & stamp,
-              const std::string & frame_id,
-              const Pose2D & position,
-              romea_localisation_msgs::msg::ObservationPose2DStamped &msg);
+                const std::string & frame_id,
+                const Pose2D & position,
+                romea_localisation_msgs::msg::ObservationPose2DStamped &msg);
 
 void to_ros_msg(const ObservationPose & observation,
-              romea_localisation_msgs::msg::ObservationPose2D &msg);
+                romea_localisation_msgs::msg::ObservationPose2D &msg);
 
 void to_ros_msg(const rclcpp::Time & stamp,
-              const std::string & frame_id,
-              const ObservationPose & observation,
-              romea_localisation_msgs::msg::ObservationPose2DStamped &msg);
+                const std::string & frame_id,
+                const ObservationPose & observation,
+                romea_localisation_msgs::msg::ObservationPose2DStamped &msg);
 
-void extractObs(const romea_localisation_msgs::msg::ObservationPose2DStamped &msg,
-                ObservationPose & observation);
+void extract_obs(const romea_localisation_msgs::msg::ObservationPose2DStamped &msg,
+                 ObservationPose & observation);
 
 }
 

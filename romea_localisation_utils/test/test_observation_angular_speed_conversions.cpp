@@ -45,7 +45,7 @@ TEST_F(TestObsAngularSpeedConversion, fromRomeato_ros_msg)
 TEST_F(TestObsAngularSpeedConversion, fromRosMsgtoObs)
 {
   romea::ObservationAngularSpeed romea_obs_angular_speed_bis;
-  romea::extractObs(ros_obs_angular_speed_msg,romea_obs_angular_speed_bis);
+  romea::extract_obs(ros_obs_angular_speed_msg,romea_obs_angular_speed_bis);
 
   EXPECT_DOUBLE_EQ(romea_obs_angular_speed_bis.Y(),romea_obs_angular_speed.Y());
   EXPECT_DOUBLE_EQ(romea_obs_angular_speed_bis.R(),romea_obs_angular_speed.R());

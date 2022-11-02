@@ -49,7 +49,7 @@ TEST_F(TestObsAttitudeConversion, fromRomeato_ros_msg)
 TEST_F(TestObsAttitudeConversion, fromRosMsgtoObs)
 {
   romea::ObservationAttitude romea_obs_attitude_bis;
-  romea::extractObs(romea_obs_attitude_msg,romea_obs_attitude_bis);
+  romea::extract_obs(romea_obs_attitude_msg,romea_obs_attitude_bis);
   EXPECT_DOUBLE_EQ(romea_obs_attitude_bis.Y(romea::ObservationAttitude::ROLL),
                    romea_obs_attitude.Y(romea::ObservationAttitude::ROLL));
   EXPECT_DOUBLE_EQ(romea_obs_attitude_bis.Y(romea::ObservationAttitude::PITCH),

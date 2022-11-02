@@ -45,7 +45,7 @@ TEST_F(TestObsCourseConversion, fromRomeato_ros_msg)
 TEST_F(TestObsCourseConversion, fromRosMsgtoObs)
 {
   romea::ObservationCourse romea_obs_course_bis;
-  romea::extractObs(ros_obs_course_msg,romea_obs_course_bis);
+  romea::extract_obs(ros_obs_course_msg,romea_obs_course_bis);
 
   EXPECT_DOUBLE_EQ(romea_obs_course_bis.Y(),romea_obs_course.Y());
   EXPECT_DOUBLE_EQ(romea_obs_course_bis.R(),romea_obs_course.R());

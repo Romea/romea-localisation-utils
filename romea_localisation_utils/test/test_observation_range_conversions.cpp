@@ -57,7 +57,7 @@ TEST_F(TestObsRangeConversion, fromRomeato_ros_msg)
 TEST_F(TestObsRangeConversion, fromRosMsgtoObs)
 {
   romea::ObservationRange romea_obs_range_bis;
-  romea::extractObs(ros_obs_range_msg,romea_obs_range_bis);
+  romea::extract_obs(ros_obs_range_msg,romea_obs_range_bis);
   EXPECT_DOUBLE_EQ(romea_obs_range_bis.Y(),romea_obs_range.Y());
   EXPECT_DOUBLE_EQ(romea_obs_range_bis.R(),romea_obs_range.R());
   EXPECT_DOUBLE_EQ(romea_obs_range_bis.initiatorPosition.x(),romea_obs_range.initiatorPosition.x());

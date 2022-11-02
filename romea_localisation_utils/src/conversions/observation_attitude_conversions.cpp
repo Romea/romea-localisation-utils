@@ -5,7 +5,7 @@ namespace romea
 
 //-----------------------------------------------------------------------------
 void to_ros_msg(const ObservationAttitude & observation,
-              romea_localisation_msgs::msg::ObservationAttitude &msg)
+                romea_localisation_msgs::msg::ObservationAttitude &msg)
 {
   msg.roll_angle = observation.Y(romea::ObservationAttitude::ROLL);
   msg.pitch_angle = observation.Y(romea::ObservationAttitude::PITCH);
@@ -18,9 +18,9 @@ void to_ros_msg(const ObservationAttitude & observation,
 
 //-----------------------------------------------------------------------------
 void to_ros_msg(const rclcpp::Time & stamp,
-              const std::string & frame_id,
-              const ObservationAttitude & observation,
-              romea_localisation_msgs::msg::ObservationAttitudeStamped &msg)
+                const std::string & frame_id,
+                const ObservationAttitude & observation,
+                romea_localisation_msgs::msg::ObservationAttitudeStamped &msg)
 {
   msg.header.frame_id=frame_id;
   msg.header.stamp = stamp;
@@ -29,8 +29,8 @@ void to_ros_msg(const rclcpp::Time & stamp,
 
 
 //-----------------------------------------------------------------------------
-void extractObs(const romea_localisation_msgs::msg::ObservationAttitudeStamped &msg,
-                ObservationAttitude & observation)
+void extract_obs(const romea_localisation_msgs::msg::ObservationAttitudeStamped &msg,
+                 ObservationAttitude & observation)
 {
   observation.Y(ObservationAttitude::ROLL)=msg.observation_attitude.roll_angle;
   observation.Y(ObservationAttitude::PITCH)=msg.observation_attitude.pitch_angle;

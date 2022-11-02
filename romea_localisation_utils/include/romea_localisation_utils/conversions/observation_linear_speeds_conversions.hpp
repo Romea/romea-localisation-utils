@@ -7,8 +7,8 @@
 namespace romea
 {
 
-void extractObs(const romea_localisation_msgs::msg::ObservationTwist2DStamped &msg,
-                ObservationLinearSpeeds & observation);
+void extract_obs(const romea_localisation_msgs::msg::ObservationTwist2DStamped &msg,
+                 ObservationLinearSpeeds & observation);
 
 }
 

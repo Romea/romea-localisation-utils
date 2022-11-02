@@ -9,15 +9,15 @@ namespace romea
 {
 
 void to_ros_msg(const ObservationRange & observation,
-              romea_localisation_msgs::msg::ObservationRange &msg);
+                romea_localisation_msgs::msg::ObservationRange &msg);
 
 void to_ros_msg(const rclcpp::Time & stamp,
-              const std::string & frame_id,
-              const ObservationRange &observation,
-              romea_localisation_msgs::msg::ObservationRangeStamped &msg);
+                const std::string & frame_id,
+                const ObservationRange &observation,
+                romea_localisation_msgs::msg::ObservationRangeStamped &msg);
 
-void extractObs(const romea_localisation_msgs::msg::ObservationRangeStamped & msg,
-                ObservationRange & observation);
+void extract_obs(const romea_localisation_msgs::msg::ObservationRangeStamped & msg,
+                 ObservationRange & observation);
 
 }
 

@@ -62,7 +62,7 @@ TEST_F(TestObsTwistConversion, fromRomeato_ros_msg)
 TEST_F(TestObsTwistConversion, fromRosMsgtoObs)
 {
   romea::ObservationTwist romea_obs_twist_bis;
-  romea::extractObs(romea_obs_twist_msg,romea_obs_twist_bis);
+  romea::extract_obs(romea_obs_twist_msg,romea_obs_twist_bis);
   EXPECT_DOUBLE_EQ(romea_obs_twist_bis.Y(romea::ObservationTwist::LINEAR_SPEED_X_BODY),
                    romea_obs_twist.Y(romea::ObservationTwist::LINEAR_SPEED_X_BODY));
   EXPECT_DOUBLE_EQ(romea_obs_twist_bis.Y(romea::ObservationTwist::LINEAR_SPEED_Y_BODY),

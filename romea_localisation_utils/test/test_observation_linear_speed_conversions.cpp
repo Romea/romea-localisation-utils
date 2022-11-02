@@ -37,7 +37,7 @@ public :
 TEST_F(TestObsLinearSpeedConversion, fromRosMsgtoObs)
 {
   romea::ObservationLinearSpeed romea_obs_linear_speed;
-  romea::extractObs(ros_obs_linear_speed_msg,romea_obs_linear_speed);
+  romea::extract_obs(ros_obs_linear_speed_msg,romea_obs_linear_speed);
   EXPECT_DOUBLE_EQ(romea_obs_linear_speed.Y(),ros_obs_linear_speed_msg.observation_twist.twist.linear_speeds.x);
   EXPECT_DOUBLE_EQ(romea_obs_linear_speed.R(),ros_obs_linear_speed_msg.observation_twist.twist.covariance[0]);
 }

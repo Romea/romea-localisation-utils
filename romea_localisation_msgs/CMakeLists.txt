@@ -16,6 +16,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(romea_common_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+    msg/LocalisationStatus.msg
     msg/ObservationAngularSpeed.msg
     msg/ObservationAngularSpeedStamped.msg
     msg/ObservationAttitude.msg
@@ -30,7 +31,6 @@ rosidl_generate_interfaces(${PROJECT_NAME}
     msg/ObservationPose2DStamped.msg
     msg/ObservationTwist2DStamped.msg
     msg/ObservationTwist2D.msg
-#    srv/CheckLocalisationStatus.srv
     DEPENDENCIES std_msgs geometry_msgs romea_common_msgs
     )
 

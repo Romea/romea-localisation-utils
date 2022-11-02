@@ -1,11 +1,9 @@
 #ifndef __LocalisationUpdaterPluginBase_HPP__
 #define __LocalisationUpdaterPluginBase_HPP__
 
-//std
-#include <mutex>
 
 //ros
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
 
 //romea
 #include <romea_core_common/diagnostic/CheckupRate.hpp>
@@ -15,15 +13,15 @@
 namespace romea {
 
 
-class LocalisationUpdaterPluginBase
+class LocalisationUpdaterInterfaceBase
 {
 public:
 
-  LocalisationUpdaterPluginBase(){}
+  LocalisationUpdaterInterfaceBase(){}
 
-  virtual bool heartBeatCallback(const Duration & duration)=0;
+  virtual bool heartbeat_callback(const Duration & duration)=0;
 
-  virtual DiagnosticReport getReport() = 0;
+  virtual DiagnosticReport get_report() = 0;
 };
 
 }

@@ -6,7 +6,7 @@ namespace romea
 
 
 ////-----------------------------------------------------------------------------
-//void extractObs(const romea_localisation_msgs::Twist2DStamped &msg,
+//void extract_obs(const romea_localisation_msgs::Twist2DStamped &msg,
 //                ObservationTwist &observation)
 //{
 //  observation.Y(ObservationTwist::LINEAR_SPEED_X_BODY)=msg.twist.linear_speed_along_x_body_axis;
@@ -16,7 +16,7 @@ namespace romea
 //}
 
 ////-----------------------------------------------------------------------------
-//void extractObs(const romea_localisation_msgs::Pose2DStamped & msg,
+//void extract_obs(const romea_localisation_msgs::Pose2DStamped & msg,
 //                ObservationPose & observation)
 //{
 //  observation.Y(ObservationPose::POSITION_X)=msg.pose.x;
@@ -29,7 +29,7 @@ namespace romea
 
 
 ////-----------------------------------------------------------------------------
-//void extractObs(const romea_localisation_msgs::RangeStamped & msg,
+//void extract_obs(const romea_localisation_msgs::RangeStamped & msg,
 //                ObservationRange &observation)
 //{
 //  observation.Y()= msg.range.range;
@@ -43,7 +43,7 @@ namespace romea
 //}
 
 ////-----------------------------------------------------------------------------
-//void extractObs(const romea_localisation_msgs::Twist2DStamped &msg,
+//void extract_obs(const romea_localisation_msgs::Twist2DStamped &msg,
 //                ObservationLinearSpeed &observation)
 //{
 //  observation.Y()=msg.twist.linear_speed_along_x_body_axis;
@@ -51,7 +51,7 @@ namespace romea
 //}
 
 ////-----------------------------------------------------------------------------
-//void extractObs(const romea_localisation_msgs::Twist2DStamped &msg,
+//void extract_obs(const romea_localisation_msgs::Twist2DStamped &msg,
 //                ObservationLinearSpeeds &observation)
 //{
 //  observation.Y(ObservationLinearSpeeds::LINEAR_SPEED_X_BODY)=

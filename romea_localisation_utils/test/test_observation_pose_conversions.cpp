@@ -62,7 +62,7 @@ TEST_F(TestObsPoseConversion, fromRomeato_ros_msg)
 TEST_F(TestObsPoseConversion, fromRosMsgtoObs)
 {
   romea::ObservationPose romea_obs_pose_bis;
-  romea::extractObs(romea_obs_pose_msg,romea_obs_pose_bis);
+  romea::extract_obs(romea_obs_pose_msg,romea_obs_pose_bis);
   EXPECT_DOUBLE_EQ(romea_obs_pose_bis.Y(romea::ObservationPose::POSITION_X),
                    romea_obs_pose.Y(romea::ObservationPose::POSITION_X));
   EXPECT_DOUBLE_EQ(romea_obs_pose_bis.Y(romea::ObservationPose::POSITION_Y),

@@ -9,16 +9,16 @@
 namespace romea {
 
 
-  void to_ros_msg(const ObservationAngularSpeed & observation,
+void to_ros_msg(const ObservationAngularSpeed & observation,
                 romea_localisation_msgs::msg::ObservationAngularSpeed &msg);
 
-  void to_ros_msg(const rclcpp::Time & stamp,
+void to_ros_msg(const rclcpp::Time & stamp,
                 const std::string & frame_id,
                 const ObservationAngularSpeed & observation,
                 romea_localisation_msgs::msg::ObservationAngularSpeedStamped &msg);
 
-  void extractObs(const romea_localisation_msgs::msg::ObservationAngularSpeedStamped & msg,
-                  ObservationAngularSpeed & observation);
+void extract_obs(const romea_localisation_msgs::msg::ObservationAngularSpeedStamped & msg,
+                 ObservationAngularSpeed & observation);
 }
 
 #endif
