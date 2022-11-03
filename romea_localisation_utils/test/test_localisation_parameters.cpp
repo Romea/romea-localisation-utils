@@ -56,14 +56,14 @@ TEST_F(TestLocalisationFilterParams, checkGetPredictorMaximalCircularErrorProbab
 TEST_F(TestLocalisationFilterParams, checkGetFilterNumberOfParticles)
 {
   romea::declare_filter_number_of_particles(node);
-  EXPECT_EQ(romea::get_filter_number_of_particles(node),200);
+  EXPECT_EQ(romea::get_filter_number_of_particles(node),200u);
 }
 
 //-----------------------------------------------------------------------------
 TEST_F(TestLocalisationFilterParams, checkGetFilterStatePoolSize)
 {
   romea::declare_filter_state_pool_size(node);
-  EXPECT_EQ(romea::get_filter_state_pool_size(node),1000);
+  EXPECT_EQ(romea::get_filter_state_pool_size(node),1000u);
 }
 
 //-----------------------------------------------------------------------------
@@ -91,14 +91,14 @@ TEST_F(TestLocalisationFilterParams, checkGetUpdaterEmptyTopicName)
 TEST_F(TestLocalisationFilterParams, checkGetUpdaterMinimalRate)
 {
   romea::declare_updater_minimal_rate(node,"angular_speed_updater");
-  EXPECT_EQ(romea::get_updater_minimal_rate(node,"angular_speed_updater"),10);
+  EXPECT_EQ(romea::get_updater_minimal_rate(node,"angular_speed_updater"),10u);
 }
 
 //-----------------------------------------------------------------------------
 TEST_F(TestLocalisationFilterParams, checkGetUpdaterEmptyMinimalRate)
 {
   romea::declare_updater_minimal_rate(node,"bar");
-  EXPECT_EQ(romea::get_updater_minimal_rate(node,"bar"),0);
+  EXPECT_EQ(romea::get_updater_minimal_rate(node,"bar"),0u);
 }
 
 //-----------------------------------------------------------------------------
