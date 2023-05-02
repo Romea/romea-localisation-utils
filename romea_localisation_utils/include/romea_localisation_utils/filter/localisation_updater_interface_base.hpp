@@ -1,29 +1,32 @@
-#ifndef __LocalisationUpdaterPluginBase_HPP__
-#define __LocalisationUpdaterPluginBase_HPP__
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
+
+#ifndef ROMEA_LOCALISATION_UTILS__FILTER__LOCALISATION_UPDATER_INTERFACE_BASE_HPP_
+#define ROMEA_LOCALISATION_UTILS__FILTER__LOCALISATION_UPDATER_INTERFACE_BASE_HPP_
 
 
-//ros
+// ros
 #include <rclcpp/rclcpp.hpp>
 
-//romea
+// romea
 #include <romea_core_common/diagnostic/CheckupRate.hpp>
 #include <romea_common_utils/conversions/time_conversions.hpp>
 
 
-namespace romea {
+namespace romea
+{
 
 
 class LocalisationUpdaterInterfaceBase
 {
 public:
+  LocalisationUpdaterInterfaceBase() {}
 
-  LocalisationUpdaterInterfaceBase(){}
-
-  virtual bool heartbeat_callback(const Duration & duration)=0;
+  virtual bool heartbeat_callback(const Duration & duration) = 0;
 
   virtual DiagnosticReport get_report() = 0;
 };
 
-}
+}  // namespace romea
 
-#endif
+#endif  // ROMEA_LOCALISATION_UTILS__FILTER__LOCALISATION_UPDATER_INTERFACE_BASE_HPP_

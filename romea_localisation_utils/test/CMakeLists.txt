@@ -3,32 +3,32 @@ get_filename_component(TEST_DIR_SRC ${CMAKE_CURRENT_SOURCE_DIR} ABSOLUTE)
 configure_file(test_helper.h.in test_helper.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-ament_add_gtest(${PROJECT_NAME}_test_observation_angular_speed_conversions test_observation_angular_speed_conversions.cpp )
+ament_add_gtest(${PROJECT_NAME}_test_observation_angular_speed_conversions test_observation_angular_speed_conversions.cpp)
 target_link_libraries(${PROJECT_NAME}_test_observation_angular_speed_conversions ${PROJECT_NAME})
 
-ament_add_gtest(${PROJECT_NAME}_test_observation_attitude_conversions test_observation_attitude_conversions.cpp )
+ament_add_gtest(${PROJECT_NAME}_test_observation_attitude_conversions test_observation_attitude_conversions.cpp)
 target_link_libraries(${PROJECT_NAME}_test_observation_attitude_conversions ${PROJECT_NAME})
 
-ament_add_gtest(${PROJECT_NAME}_test_observation_course_conversions test_observation_course_conversions.cpp )
+ament_add_gtest(${PROJECT_NAME}_test_observation_course_conversions test_observation_course_conversions.cpp)
 target_link_libraries(${PROJECT_NAME}_test_observation_course_conversions ${PROJECT_NAME})
 
-ament_add_gtest(${PROJECT_NAME}_test_observation_linear_speed_conversions test_observation_linear_speed_conversions.cpp )
+ament_add_gtest(${PROJECT_NAME}_test_observation_linear_speed_conversions test_observation_linear_speed_conversions.cpp)
 target_link_libraries(${PROJECT_NAME}_test_observation_linear_speed_conversions ${PROJECT_NAME})
 
-ament_add_gtest(${PROJECT_NAME}_test_observation_linear_speeds_conversions test_observation_linear_speeds_conversions.cpp )
+ament_add_gtest(${PROJECT_NAME}_test_observation_linear_speeds_conversions test_observation_linear_speeds_conversions.cpp)
 target_link_libraries(${PROJECT_NAME}_test_observation_linear_speeds_conversions ${PROJECT_NAME})
 
-ament_add_gtest(${PROJECT_NAME}_test_observation_pose_conversions test_observation_pose_conversions.cpp )
+ament_add_gtest(${PROJECT_NAME}_test_observation_pose_conversions test_observation_pose_conversions.cpp)
 target_link_libraries(${PROJECT_NAME}_test_observation_pose_conversions ${PROJECT_NAME})
 
-ament_add_gtest(${PROJECT_NAME}_test_observation_position_conversions test_observation_position_conversions.cpp )
+ament_add_gtest(${PROJECT_NAME}_test_observation_position_conversions test_observation_position_conversions.cpp)
 target_link_libraries(${PROJECT_NAME}_test_observation_position_conversions ${PROJECT_NAME})
 
-ament_add_gtest(${PROJECT_NAME}_test_observation_range_conversions test_observation_range_conversions.cpp )
+ament_add_gtest(${PROJECT_NAME}_test_observation_range_conversions test_observation_range_conversions.cpp)
 target_link_libraries(${PROJECT_NAME}_test_observation_range_conversions ${PROJECT_NAME})
 
-ament_add_gtest(${PROJECT_NAME}_test_observation_twist_conversions test_observation_twist_conversions.cpp )
+ament_add_gtest(${PROJECT_NAME}_test_observation_twist_conversions test_observation_twist_conversions.cpp)
 target_link_libraries(${PROJECT_NAME}_test_observation_twist_conversions ${PROJECT_NAME})
 
-ament_add_gtest(${PROJECT_NAME}_test_localisation_parameters test_localisation_parameters.cpp )
+ament_add_gtest(${PROJECT_NAME}_test_localisation_parameters test_localisation_parameters.cpp)
 target_link_libraries(${PROJECT_NAME}_test_localisation_parameters ${PROJECT_NAME})
