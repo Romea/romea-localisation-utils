@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
+
   <name>romea_localisation_utils</name>
+
   <version>0.0.0</version>
+
   <description>Package romea_localisation_utils description</description>
   <maintainer email="jean.laneurit@inrae.fr">Jean Laneurit</maintainer>
+
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
@@ -26,25 +30,3 @@
   </export>
 
 </package>
-
-<!--<?xml version="1.0"?>
-<package format="2">
-  <name>romea_localisation_utils</name>
-  <version>0.0.0</version>
-  <description>The romea_localisation utils package</description>
-
-  <author email="jean.laneurit@inrae.fr">Jean Laneurit</author>
-  <maintainer email="jean.laneurit@inrae.fr">Jean Laneurit</maintainer>
-
-
-  <license>TODO</license>
-
-  <buildtool_depend>catkin</buildtool_depend>
-  <depend>roscpp</depend>
-  <depend>romea_common_utils</depend>
-  <depend>romea_core_filtering</depend>
-  <depend>romea_core_localisation</depend>
-  <depend>romea_localisation_msgs</depend>
-  <depend>romea_lifecycle</depend>
-
-</package>-->
