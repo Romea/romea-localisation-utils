@@ -42,8 +42,7 @@ void declare_particle_filter_parameters(std::shared_ptr<rclcpp::Node> node);
 template<FilterType FilterType_>
 void declare_filter_parameters(std::shared_ptr<rclcpp::Node> node)
 {
-  if constexpr (FilterType_ == KALMAN)
-  {
+  if constexpr (FilterType_ == KALMAN) {
     return declare_kalman_filter_parameters(node);
   } else {
     return declare_particle_filter_parameters(node);

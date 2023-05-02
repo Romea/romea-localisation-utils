@@ -51,8 +51,7 @@ std::unique_ptr<Updater> make_exteroceptive_updater(
   std::shared_ptr<rclcpp::Node> & node,
   const std::string & updater_name)
 {
-  if constexpr (FilterType_ == KALMAN)
-  {
+  if constexpr (FilterType_ == KALMAN) {
     return make_kalman_exteroceptive_updater<Updater>(node, updater_name);
   } else {
     return make_particle_exteroceptive_updater<Updater>(node, updater_name);
@@ -94,8 +93,7 @@ std::unique_ptr<Predictor> make_particle_predictor(std::shared_ptr<rclcpp::Node>
 template<class Predictor, FilterType FilterType_>
 std::unique_ptr<Predictor> make_predictor(std::shared_ptr<rclcpp::Node> & node)
 {
-  if constexpr (FilterType_ == KALMAN)
-  {
+  if constexpr (FilterType_ == KALMAN) {
     return make_kalman_predictor<Predictor>(node);
   } else {
     return make_particle_predictor<Predictor>(node);
@@ -122,8 +120,7 @@ std::unique_ptr<Filter> make_particle_filter(std::shared_ptr<rclcpp::Node> node)
 template<class Filter, FilterType FilterType_>
 std::unique_ptr<Filter> make_filter(std::shared_ptr<rclcpp::Node> node)
 {
-  if constexpr (FilterType_ == KALMAN)
-  {
+  if constexpr (FilterType_ == KALMAN) {
     return make_kalman_filter<Filter>(node);
   } else {
     return make_particle_filter<Filter>(node);
