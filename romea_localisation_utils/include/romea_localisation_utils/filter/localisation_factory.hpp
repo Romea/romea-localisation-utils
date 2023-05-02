@@ -156,8 +156,7 @@ std::unique_ptr<Results> make_particle_results(std::shared_ptr<rclcpp::Node> nod
 template<class Results, FilterType FilterType_>
 std::unique_ptr<Results> make_results(std::shared_ptr<rclcpp::Node> node)
 {
-  if constexpr (FilterType_ == KALMAN)
-  {
+  if constexpr (FilterType_ == KALMAN) {
     return make_kalman_results<Results>(node);
   } else {
     return make_particle_results<Results>(node);
