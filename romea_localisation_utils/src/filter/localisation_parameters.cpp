@@ -21,16 +21,16 @@ const double DEFAULT_MAXIMAL_DEAD_RECKONING_TRAVELLED_DISTANCE = 100000;
 const double DEFAULT_MAXIMAL_DEAD_RECKONING_ELAPSED_TIME = 3600;
 
 const char PREDICTOR_MAXIMAL_DEAD_RECKONING_TRAVELLED_DISTANCE_PARAM_NAME[] =
-  "configuration.predictor.maximal_dead_recknoning_travelled_distance";
+  "predictor.maximal_dead_recknoning_travelled_distance";
 const char PREDICTOR_MAXIMAL_DEAD_RECKONING_ELAPSED_TIME_PARAM_NAME[] =
-  "configuration.predictor.maximal_dead_recknoning_elapsed_time";
+  "predictor.maximal_dead_recknoning_elapsed_time";
 const char PREDICTOR_MAXIMAL_POSITION_CIRCULAR_ERROR_PROBABLE_PARAM_NAME[] =
-  "configuration.predictor.maximal_position_circular_error_probability";
+  "predictor.maximal_position_circular_error_probability";
 
 const char FILTER_NUMBER_OF_PARTICLES_PARAM_NAME[] =
-  "configuration.filter.number_of_particles";
+  "filter.number_of_particles";
 const char FILTER_STATE_POOL_SIZE_PARAM_NAME[] =
-  "configuration.filter.state_pool_size";
+  "filter.state_pool_size";
 
 const char UPDATER_TRIGGER_PARAM_NAME[] =
   "trigger";
@@ -162,7 +162,7 @@ void declare_updater_trigger_mode(
   const std::string & updater_name)
 {
   declare_parameter_with_default<std::string>(
-    node, "configuration." + updater_name, UPDATER_TRIGGER_PARAM_NAME, "");
+    node, updater_name, UPDATER_TRIGGER_PARAM_NAME, "");
 }
 
 //-----------------------------------------------------------------------------
@@ -171,7 +171,7 @@ std::string get_updater_trigger_mode(
   const std::string & updater_name)
 {
   return get_parameter<std::string>(
-    node, "configuration." + updater_name, UPDATER_TRIGGER_PARAM_NAME);
+    node, updater_name, UPDATER_TRIGGER_PARAM_NAME);
 }
 
 //-----------------------------------------------------------------------------
@@ -180,7 +180,7 @@ void declare_updater_topic_name(
   const std::string & updater_name)
 {
   declare_parameter_with_default<std::string>(
-    node, "configuration." + updater_name, UPDATER_TOPIC_PARAM_NAME, "");
+    node, updater_name, UPDATER_TOPIC_PARAM_NAME, "");
 }
 
 //-----------------------------------------------------------------------------
@@ -189,7 +189,7 @@ std::string get_updater_topic_name(
   const std::string & updater_name)
 {
   return get_parameter<std::string>(
-    node, "configuration." + updater_name, UPDATER_TOPIC_PARAM_NAME);
+    node, updater_name, UPDATER_TOPIC_PARAM_NAME);
 }
 
 //-----------------------------------------------------------------------------
@@ -198,7 +198,7 @@ void declare_updater_minimal_rate(
   std::string updater_name)
 {
   declare_parameter_with_default<int>(
-    node, "configuration." + updater_name, UPDATER_MINIMAL_RATE_PARAM_NAME, 0);
+    node, updater_name, UPDATER_MINIMAL_RATE_PARAM_NAME, 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -207,7 +207,7 @@ unsigned int get_updater_minimal_rate(
   std::string updater_name)
 {
   int minimal_rate = get_parameter<int>(
-    node, "configuration." + updater_name, UPDATER_MINIMAL_RATE_PARAM_NAME);
+    node, updater_name, UPDATER_MINIMAL_RATE_PARAM_NAME);
 
   if (minimal_rate < 0) {
     throw(std::runtime_error("Invalid minimal rate for updater " + updater_name));
@@ -222,8 +222,8 @@ void declare_updater_maximal_mahalanobis_distance(
   std::shared_ptr<rclcpp::Node> node,
   std::string updater_name)
 {
-  declare_parameter_with_default<int>(
-    node, "configuration." + updater_name,
+  declare_parameter_with_default<double>(
+    node, updater_name,
     UPDATER_MAHALANOBIS_DISTANCE_REJECTION_THRESHOLD_PARAM_NAME, 0);
 }
 
@@ -233,7 +233,7 @@ void declare_updater_mahalanobis_distance_rejection_threshold(
   std::string updater_name)
 {
   declare_parameter_with_default<double>(
-    node, "configuration." + updater_name,
+    node, updater_name,
     UPDATER_MAHALANOBIS_DISTANCE_REJECTION_THRESHOLD_PARAM_NAME,
     DEFAULT_MAXIMAL_MAHALANOBIS_DISTANCE);
 }
@@ -244,7 +244,7 @@ double get_updater_mahalanobis_distance_rejection_threshold(
   std::string updater_name)
 {
   return get_parameter<double>(
-    node, "configuration." + updater_name,
+    node, updater_name,
     UPDATER_MAHALANOBIS_DISTANCE_REJECTION_THRESHOLD_PARAM_NAME);
 }
 

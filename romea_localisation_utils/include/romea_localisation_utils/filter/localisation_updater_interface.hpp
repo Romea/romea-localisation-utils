@@ -62,7 +62,13 @@ LocalisationUpdaterInterface<Filter_, Updater_, Msg>::LocalisationUpdaterInterfa
     &LocalisationUpdaterInterface::process_message,
     this, std::placeholders::_1);
 
-  sub_ = node->create_subscription<Msg>(topic_name, best_effort(1), callback);
+  rclcpp::SubscriptionOptions options;
+  options.callback_group = node->create_callback_group(
+    rclcpp::CallbackGroupType::MutuallyExclusive);
+
+  // callback_group_ = node->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+
+  sub_ = node->create_subscription<Msg>(topic_name, best_effort(1), callback, options);
 }
 
 
