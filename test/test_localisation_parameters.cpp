@@ -34,8 +34,11 @@ protected:
     rclcpp::NodeOptions no;
     no.arguments(
       {"--ros-args", "--params-file", std::string(
-          TEST_DIR) + "/test_localisation_filter_parameters.yaml"});
-    node = std::make_shared<rclcpp::Node>("test_localisation_filter_parameters", no);
+          TEST_DIR) + "/test_localisation_parameters.yaml"});
+
+    std::cout << "  loc file" << std::string(TEST_DIR) + "/test_localisation_parameters.yaml" <<
+      std::endl;
+    node = std::make_shared<rclcpp::Node>("test_localisation_parameters", no);
   }
 
   std::shared_ptr<rclcpp::Node> node;
