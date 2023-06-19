@@ -15,13 +15,13 @@ repositories:
   romea_ros2/tools/romea_common:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/tools/romea_common.git
-    version: main
+    version: devel
 
   romea_ros2/algorithms/localisation/romea_localisation_msgs:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/localisation/romea_localisation_msgs.git
-    version: main
+    version: devel
   romea_ros2/algorithms/localisation/romea_localisation_utils:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/localisation/romea_localisation_utils.git
-    version: main
+    version: devel
