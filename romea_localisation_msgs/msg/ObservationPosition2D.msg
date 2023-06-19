@@ -1,2 +1,0 @@
-romea_common_msgs/Position2D position
-geometry_msgs/Vector3 level_arm

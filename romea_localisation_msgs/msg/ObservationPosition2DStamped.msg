@@ -1,2 +1,0 @@
-std_msgs/Header header
-ObservationPosition2D observation_position

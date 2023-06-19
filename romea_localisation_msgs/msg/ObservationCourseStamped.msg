@@ -1,2 +1,0 @@
-std_msgs/Header header
-ObservationCourse observation_course
