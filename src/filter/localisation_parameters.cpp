@@ -140,7 +140,7 @@ void declare_proprioceptive_updater_parameters(
   std::shared_ptr<rclcpp::Node> node,
   const std::string & updater_name)
 {
-  declare_updater_topic_name(node, updater_name);
+  // declare_updater_topic_name(node, updater_name);
   declare_updater_minimal_rate(node, updater_name);
 }
 
@@ -149,12 +149,11 @@ void declare_exteroceptive_updater_parameters(
   std::shared_ptr<rclcpp::Node> node,
   const std::string & updater_name)
 {
-  declare_updater_topic_name(node, updater_name);
+  // declare_updater_topic_name(node, updater_name);
   declare_updater_minimal_rate(node, updater_name);
   declare_updater_trigger_mode(node, updater_name);
   declare_updater_mahalanobis_distance_rejection_threshold(node, updater_name);
 }
-
 
 //-----------------------------------------------------------------------------
 void declare_updater_trigger_mode(

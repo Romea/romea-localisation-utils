@@ -127,25 +127,16 @@ DiagnosticReport LocalisationUpdaterInterface<Filter_, Updater_, Msg>::get_repor
 template<typename UpdaterInterface>
 std::unique_ptr<UpdaterInterface> make_updater_interface(
   std::shared_ptr<rclcpp::Node> node,
-  const std::string & updater_name)
-{
-  std::string topic_name = get_updater_topic_name(node, updater_name);
-  return std::make_unique<UpdaterInterface>(node, topic_name);
-}
-
-//-----------------------------------------------------------------------------
-template<typename UpdaterInterface>
-std::unique_ptr<UpdaterInterface> make_updater_interface(
-  std::shared_ptr<rclcpp::Node> node,
-  const std::string & updater_name,
+  const std::string & topic_name,
   std::shared_ptr<typename UpdaterInterface::Filter> filter,
   std::unique_ptr<typename UpdaterInterface::Updater> updater)
 {
-  auto interface = make_updater_interface<UpdaterInterface>(node, updater_name);
+  auto interface = std::make_unique<UpdaterInterface>(node, topic_name);
   interface->load_updater(std::move(updater));
   interface->register_filter(filter);
   return interface;
 }
+
 
 }  // namespace romea
 
