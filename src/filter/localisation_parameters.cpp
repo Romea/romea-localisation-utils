@@ -26,11 +26,6 @@
 namespace
 {
 
-const double DEFAULT_MAXIMAL_MAHALANOBIS_DISTANCE = std::numeric_limits<double>::max();
-const double DEFAULT_MAXIMAL_POSITION_CIRCULAR_ERROR_PROBABLE = 100;
-const double DEFAULT_MAXIMAL_DEAD_RECKONING_TRAVELLED_DISTANCE = 100000;
-const double DEFAULT_MAXIMAL_DEAD_RECKONING_ELAPSED_TIME = 3600;
-
 const char PREDICTOR_MAXIMAL_DEAD_RECKONING_TRAVELLED_DISTANCE_PARAM_NAME[] =
   "predictor.maximal_dead_recknoning_travelled_distance";
 const char PREDICTOR_MAXIMAL_DEAD_RECKONING_ELAPSED_TIME_PARAM_NAME[] =
@@ -45,8 +40,6 @@ const char FILTER_STATE_POOL_SIZE_PARAM_NAME[] =
 
 const char UPDATER_TRIGGER_PARAM_NAME[] =
   "trigger";
-const char UPDATER_TOPIC_PARAM_NAME[] =
-  "topic";
 const char UPDATER_MINIMAL_RATE_PARAM_NAME[] =
   "minimal_rate";
 const char UPDATER_MAHALANOBIS_DISTANCE_REJECTION_THRESHOLD_PARAM_NAME[] =
@@ -58,19 +51,27 @@ namespace romea
 {
 
 //-----------------------------------------------------------------------------
-void declare_predictor_parameters(std::shared_ptr<rclcpp::Node> node)
+void declare_predictor_parameters(
+  std::shared_ptr<rclcpp::Node> node,
+  const double & defaul_maximal_dead_reckoning_travelled_distance,
+  const double & maximal_dead_reckoning_elapsed_time,
+  const double & maximal_circular_error_probable)
 {
-  declare_predictor_maximal_dead_reckoning_travelled_distance(node);
-  declare_predictor_maximal_dead_reckoning_elapsed_time(node);
-  declare_predictor_maximal_circular_error_probable(node);
+  declare_predictor_maximal_dead_reckoning_travelled_distance(
+    node, defaul_maximal_dead_reckoning_travelled_distance);
+  declare_predictor_maximal_dead_reckoning_elapsed_time(
+    node, maximal_dead_reckoning_elapsed_time);
+  declare_predictor_maximal_circular_error_probable(
+    node, maximal_circular_error_probable);
 }
 
 //-----------------------------------------------------------------------------
-void declare_predictor_maximal_dead_reckoning_travelled_distance(std::shared_ptr<rclcpp::Node> node)
+void declare_predictor_maximal_dead_reckoning_travelled_distance(
+  std::shared_ptr<rclcpp::Node> node,
+  const double & default_value)
 {
   declare_parameter_with_default<double>(
-    node, PREDICTOR_MAXIMAL_DEAD_RECKONING_TRAVELLED_DISTANCE_PARAM_NAME,
-    DEFAULT_MAXIMAL_DEAD_RECKONING_TRAVELLED_DISTANCE);
+    node, PREDICTOR_MAXIMAL_DEAD_RECKONING_TRAVELLED_DISTANCE_PARAM_NAME, default_value);
 }
 
 //-----------------------------------------------------------------------------
@@ -81,11 +82,12 @@ double get_predictor_maximal_dead_reckoning_travelled_distance(std::shared_ptr<r
 }
 
 //-----------------------------------------------------------------------------
-void declare_predictor_maximal_dead_reckoning_elapsed_time(std::shared_ptr<rclcpp::Node> node)
+void declare_predictor_maximal_dead_reckoning_elapsed_time(
+  std::shared_ptr<rclcpp::Node> node,
+  const double & default_value)
 {
   declare_parameter_with_default<double>(
-    node, PREDICTOR_MAXIMAL_DEAD_RECKONING_ELAPSED_TIME_PARAM_NAME,
-    DEFAULT_MAXIMAL_DEAD_RECKONING_ELAPSED_TIME);
+    node, PREDICTOR_MAXIMAL_DEAD_RECKONING_ELAPSED_TIME_PARAM_NAME, default_value);
 }
 
 //-----------------------------------------------------------------------------
@@ -95,11 +97,12 @@ double get_predictor_maximal_dead_reckoning_elapsed_time(std::shared_ptr<rclcpp:
     node, PREDICTOR_MAXIMAL_DEAD_RECKONING_ELAPSED_TIME_PARAM_NAME);
 }
 //-----------------------------------------------------------------------------
-void declare_predictor_maximal_circular_error_probable(std::shared_ptr<rclcpp::Node> node)
+void declare_predictor_maximal_circular_error_probable(
+  std::shared_ptr<rclcpp::Node> node,
+  const double & default_value)
 {
   declare_parameter_with_default<double>(
-    node, PREDICTOR_MAXIMAL_POSITION_CIRCULAR_ERROR_PROBABLE_PARAM_NAME,
-    DEFAULT_MAXIMAL_POSITION_CIRCULAR_ERROR_PROBABLE);
+    node, PREDICTOR_MAXIMAL_POSITION_CIRCULAR_ERROR_PROBABLE_PARAM_NAME, default_value);
 }
 
 //-----------------------------------------------------------------------------
@@ -149,30 +152,36 @@ size_t get_filter_state_pool_size(std::shared_ptr<rclcpp::Node> node)
 //-----------------------------------------------------------------------------
 void declare_proprioceptive_updater_parameters(
   std::shared_ptr<rclcpp::Node> node,
-  const std::string & updater_name)
+  const std::string & updater_name,
+  const unsigned int & default_minimal_rate)
 {
   // declare_updater_topic_name(node, updater_name);
-  declare_updater_minimal_rate(node, updater_name);
+  declare_updater_minimal_rate(node, updater_name, default_minimal_rate);
 }
 
 //-----------------------------------------------------------------------------
 void declare_exteroceptive_updater_parameters(
   std::shared_ptr<rclcpp::Node> node,
-  const std::string & updater_name)
+  const std::string & updater_name,
+  const unsigned int & default_minimal_rate,
+  const std::string & default_trigger_mode,
+  const double & default_mahalanobis_distance_rejection_threshold)
 {
   // declare_updater_topic_name(node, updater_name);
-  declare_updater_minimal_rate(node, updater_name);
-  declare_updater_trigger_mode(node, updater_name);
-  declare_updater_mahalanobis_distance_rejection_threshold(node, updater_name);
+  declare_updater_minimal_rate(node, updater_name, default_minimal_rate);
+  declare_updater_trigger_mode(node, updater_name, default_trigger_mode);
+  declare_updater_mahalanobis_distance_rejection_threshold(
+    node, updater_name, default_mahalanobis_distance_rejection_threshold);
 }
 
 //-----------------------------------------------------------------------------
 void declare_updater_trigger_mode(
   std::shared_ptr<rclcpp::Node> node,
-  const std::string & updater_name)
+  const std::string & updater_name,
+  const std::string & default_value)
 {
   declare_parameter_with_default<std::string>(
-    node, updater_name, UPDATER_TRIGGER_PARAM_NAME, "");
+    node, updater_name, UPDATER_TRIGGER_PARAM_NAME, default_value);
 }
 
 //-----------------------------------------------------------------------------
@@ -185,36 +194,19 @@ std::string get_updater_trigger_mode(
 }
 
 //-----------------------------------------------------------------------------
-void declare_updater_topic_name(
-  std::shared_ptr<rclcpp::Node> node,
-  const std::string & updater_name)
-{
-  declare_parameter_with_default<std::string>(
-    node, updater_name, UPDATER_TOPIC_PARAM_NAME, "");
-}
-
-//-----------------------------------------------------------------------------
-std::string get_updater_topic_name(
-  std::shared_ptr<rclcpp::Node> node,
-  const std::string & updater_name)
-{
-  return get_parameter<std::string>(
-    node, updater_name, UPDATER_TOPIC_PARAM_NAME);
-}
-
-//-----------------------------------------------------------------------------
 void declare_updater_minimal_rate(
   std::shared_ptr<rclcpp::Node> node,
-  std::string updater_name)
+  const std::string & updater_name,
+  const unsigned int & default_value)
 {
   declare_parameter_with_default<int>(
-    node, updater_name, UPDATER_MINIMAL_RATE_PARAM_NAME, 0);
+    node, updater_name, UPDATER_MINIMAL_RATE_PARAM_NAME, default_value);
 }
 
 //-----------------------------------------------------------------------------
 unsigned int get_updater_minimal_rate(
   std::shared_ptr<rclcpp::Node> node,
-  std::string updater_name)
+  const std::string & updater_name)
 {
   int minimal_rate = get_parameter<int>(
     node, updater_name, UPDATER_MINIMAL_RATE_PARAM_NAME);
@@ -226,26 +218,15 @@ unsigned int get_updater_minimal_rate(
   return static_cast<unsigned int>(minimal_rate);
 }
 
-
-//-----------------------------------------------------------------------------
-void declare_updater_maximal_mahalanobis_distance(
-  std::shared_ptr<rclcpp::Node> node,
-  std::string updater_name)
-{
-  declare_parameter_with_default<double>(
-    node, updater_name,
-    UPDATER_MAHALANOBIS_DISTANCE_REJECTION_THRESHOLD_PARAM_NAME, 0);
-}
-
 //-----------------------------------------------------------------------------
 void declare_updater_mahalanobis_distance_rejection_threshold(
   std::shared_ptr<rclcpp::Node> node,
-  std::string updater_name)
+  const std::string & updater_name,
+  const double & default_value)
 {
   declare_parameter_with_default<double>(
     node, updater_name,
-    UPDATER_MAHALANOBIS_DISTANCE_REJECTION_THRESHOLD_PARAM_NAME,
-    DEFAULT_MAXIMAL_MAHALANOBIS_DISTANCE);
+    UPDATER_MAHALANOBIS_DISTANCE_REJECTION_THRESHOLD_PARAM_NAME, default_value);
 }
 
 //-----------------------------------------------------------------------------

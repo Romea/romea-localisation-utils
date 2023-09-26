@@ -58,21 +58,24 @@ protected:
 //-----------------------------------------------------------------------------
 TEST_F(TestLocalisationFilterParams, checkGetPredictorMaximalDeadReckoningTravelledDistance)
 {
-  romea::declare_predictor_maximal_dead_reckoning_travelled_distance(node);
+  romea::declare_predictor_maximal_dead_reckoning_travelled_distance(
+    node, std::numeric_limits<double>::max());
   EXPECT_DOUBLE_EQ(romea::get_predictor_maximal_dead_reckoning_travelled_distance(node), 10.0);
 }
 
 //-----------------------------------------------------------------------------
 TEST_F(TestLocalisationFilterParams, checkGetPredictorMaximalDeadReckoningElapsedTime)
 {
-  romea::declare_predictor_maximal_dead_reckoning_elapsed_time(node);
+  romea::declare_predictor_maximal_dead_reckoning_elapsed_time(
+    node, std::numeric_limits<double>::max());
   EXPECT_DOUBLE_EQ(romea::get_predictor_maximal_dead_reckoning_elapsed_time(node), 3.0);
 }
 
 //-----------------------------------------------------------------------------
 TEST_F(TestLocalisationFilterParams, checkGetPredictorMaximalCircularErrorProbable)
 {
-  romea::declare_predictor_maximal_circular_error_probable(node);
+  romea::declare_predictor_maximal_circular_error_probable(
+    node, std::numeric_limits<double>::max());
   EXPECT_DOUBLE_EQ(romea::get_predictor_maximal_circular_error_probable(node), 0.2);
 }
 
@@ -93,57 +96,53 @@ TEST_F(TestLocalisationFilterParams, checkGetFilterStatePoolSize)
 //-----------------------------------------------------------------------------
 TEST_F(TestLocalisationFilterParams, checkGetUpdaterTriggerMode)
 {
-  romea::declare_updater_trigger_mode(node, "position_updater");
+  romea::declare_updater_trigger_mode(node, "position_updater", "once");
   EXPECT_EQ(romea::get_updater_trigger_mode(node, "position_updater"), "always");
 }
 
-//-----------------------------------------------------------------------------
-TEST_F(TestLocalisationFilterParams, checkGetUpdaterTopicName)
-{
-  romea::declare_updater_topic_name(node, "pose_updater");
-  EXPECT_EQ(romea::get_updater_topic_name(node, "pose_updater"), "pose");
-}
+// //-----------------------------------------------------------------------------
+// TEST_F(TestLocalisationFilterParams, checkGetUpdaterTopicName)
+// {
+//   romea::declare_updater_topic_name(node, "pose_updater");
+//   EXPECT_EQ(romea::get_updater_topic_name(node, "pose_updater"), "pose");
+// }
 
-//-----------------------------------------------------------------------------
-TEST_F(TestLocalisationFilterParams, checkGetUpdaterEmptyTopicName)
-{
-  romea::declare_updater_topic_name(node, "foo");
-  EXPECT_EQ(romea::get_updater_topic_name(node, "foo"), "");
-}
+// //-----------------------------------------------------------------------------
+// TEST_F(TestLocalisationFilterParams, checkGetUpdaterEmptyTopicName)
+// {
+//   romea::declare_updater_topic_name(node, "foo");
+//   EXPECT_EQ(romea::get_updater_topic_name(node, "foo"), "");
+// }
 
 //-----------------------------------------------------------------------------
 TEST_F(TestLocalisationFilterParams, checkGetUpdaterMinimalRate)
 {
-  romea::declare_updater_minimal_rate(node, "angular_speed_updater");
+  romea::declare_updater_minimal_rate(node, "angular_speed_updater", 20u);
   EXPECT_EQ(romea::get_updater_minimal_rate(node, "angular_speed_updater"), 10u);
 }
 
 //-----------------------------------------------------------------------------
 TEST_F(TestLocalisationFilterParams, checkGetUpdaterEmptyMinimalRate)
 {
-  romea::declare_updater_minimal_rate(node, "bar");
-  EXPECT_EQ(romea::get_updater_minimal_rate(node, "bar"), 0u);
+  romea::declare_updater_minimal_rate(node, "bar", 10u);
+  EXPECT_EQ(romea::get_updater_minimal_rate(node, "bar"), 10u);
 }
 
 //-----------------------------------------------------------------------------
 TEST_F(TestLocalisationFilterParams, checkGetUpdaterMahalanobisDistance)
 {
-  romea::declare_updater_mahalanobis_distance_rejection_threshold(node, "position_updater");
+  romea::declare_updater_mahalanobis_distance_rejection_threshold(
+    node, "position_updater", std::numeric_limits<double>::max());
   EXPECT_DOUBLE_EQ(
-    romea::get_updater_mahalanobis_distance_rejection_threshold(
-      node,
-      "position_updater"), 3);
+    romea::get_updater_mahalanobis_distance_rejection_threshold(node, "position_updater"), 3);
 }
 
 //-----------------------------------------------------------------------------
 TEST_F(TestLocalisationFilterParams, checkGetUpdaterEmptyMahalanobisDistance)
 {
-  romea::declare_updater_mahalanobis_distance_rejection_threshold(node, "bar");
+  romea::declare_updater_mahalanobis_distance_rejection_threshold(node, "bar", 3);
   EXPECT_DOUBLE_EQ(
-    romea::get_updater_mahalanobis_distance_rejection_threshold(
-      node,
-      "bar"),
-    std::numeric_limits<double>::max());
+    romea::get_updater_mahalanobis_distance_rejection_threshold(node, "bar"), 3);
 }
 
 //-----------------------------------------------------------------------------
