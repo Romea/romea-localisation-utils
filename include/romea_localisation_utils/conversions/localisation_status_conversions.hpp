@@ -21,11 +21,14 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 void to_ros_msg(
-  const LocalisationFSMState & fsm_state,
+  const core::LocalisationFSMState & fsm_state,
   romea_localisation_msgs::msg::LocalisationStatus & msg);
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif  // ROMEA_LOCALISATION_UTILS__CONVERSIONS__LOCALISATION_STATUS_CONVERSIONS_HPP_

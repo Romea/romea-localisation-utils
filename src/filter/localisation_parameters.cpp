@@ -49,6 +49,8 @@ const char UPDATER_MAHALANOBIS_DISTANCE_REJECTION_THRESHOLD_PARAM_NAME[] =
 
 namespace romea
 {
+namespace ros2
+{
 
 //-----------------------------------------------------------------------------
 void declare_predictor_parameters(
@@ -239,4 +241,5 @@ double get_updater_mahalanobis_distance_rejection_threshold(
     UPDATER_MAHALANOBIS_DISTANCE_REJECTION_THRESHOLD_PARAM_NAME);
 }
 
+}  // namespace ros2
 }  // namespace romea

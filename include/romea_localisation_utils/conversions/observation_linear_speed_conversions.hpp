@@ -20,11 +20,14 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 void extract_obs(
   const romea_localisation_msgs::msg::ObservationTwist2DStamped & msg,
-  ObservationLinearSpeed & observation);
+  core::ObservationLinearSpeed & observation);
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif  // ROMEA_LOCALISATION_UTILS__CONVERSIONS__OBSERVATION_LINEAR_SPEED_CONVERSIONS_HPP_

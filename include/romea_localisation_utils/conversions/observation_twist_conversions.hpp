@@ -25,31 +25,34 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 void to_ros_msg(
-  const Twist2D & twist,
+  const core::Twist2D & twist,
   romea_localisation_msgs::msg::ObservationTwist2D & msg);
 
 void to_ros_msg(
   const rclcpp::Time & stamp,
   const std::string & frame_id,
-  const Twist2D & twist,
+  const core::Twist2D & twist,
   romea_localisation_msgs::msg::ObservationTwist2DStamped & msg);
 
 void to_ros_msg(
-  const ObservationTwist & observation,
+  const core::ObservationTwist & observation,
   romea_localisation_msgs::msg::ObservationTwist2D & msg);
 
 void to_ros_msg(
   const rclcpp::Time & stamp,
   const std::string & frame_id,
-  const ObservationTwist & observation,
+  const core::ObservationTwist & observation,
   romea_localisation_msgs::msg::ObservationTwist2DStamped & msg);
 
 void extract_obs(
   const romea_localisation_msgs::msg::ObservationTwist2DStamped & msg,
-  ObservationTwist & observation);
+  core::ObservationTwist & observation);
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif  // ROMEA_LOCALISATION_UTILS__CONVERSIONS__OBSERVATION_TWIST_CONVERSIONS_HPP_

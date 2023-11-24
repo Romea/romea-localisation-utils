@@ -28,6 +28,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 
 void declare_predictor_parameters(
@@ -62,10 +64,10 @@ void declare_kalman_filter_parameters(std::shared_ptr<rclcpp::Node> node);
 
 void declare_particle_filter_parameters(std::shared_ptr<rclcpp::Node> node);
 
-template<FilterType FilterType_>
+template<core::FilterType FilterType_>
 void declare_filter_parameters(std::shared_ptr<rclcpp::Node> node)
 {
-  if constexpr (FilterType_ == KALMAN) {
+  if constexpr (FilterType_ == core::KALMAN) {
     return declare_kalman_filter_parameters(node);
   } else {
     return declare_particle_filter_parameters(node);
@@ -148,6 +150,7 @@ double get_updater_mahalanobis_distance_rejection_threshold(
   std::shared_ptr<rclcpp::Node> node,
   std::string updater_name);
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif  // ROMEA_LOCALISATION_UTILS__FILTER__LOCALISATION_PARAMETERS_HPP_

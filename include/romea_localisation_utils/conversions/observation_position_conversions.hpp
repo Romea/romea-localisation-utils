@@ -25,32 +25,35 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 void to_ros_msg(
-  const Position2D & position,
+  const core::Position2D & position,
   romea_localisation_msgs::msg::ObservationPosition2D & msg);
 
 void to_ros_msg(
   const rclcpp::Time & stamp,
   const std::string & frame_id,
-  const Position2D & position,
+  const core::Position2D & position,
   romea_localisation_msgs::msg::ObservationPosition2DStamped & msg);
 
 
 void to_ros_msg(
-  const ObservationPosition & observation,
+  const core::ObservationPosition & observation,
   romea_localisation_msgs::msg::ObservationPosition2D & msg);
 
 void to_ros_msg(
   const rclcpp::Time & stamp,
   const std::string & frame_id,
-  const ObservationPosition & observation,
+  const core::ObservationPosition & observation,
   romea_localisation_msgs::msg::ObservationPosition2DStamped & msg);
 
 void extract_obs(
   const romea_localisation_msgs::msg::ObservationPosition2DStamped & msg,
-  ObservationPosition & observation);
+  core::ObservationPosition & observation);
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif  // ROMEA_LOCALISATION_UTILS__CONVERSIONS__OBSERVATION_POSITION_CONVERSIONS_HPP_

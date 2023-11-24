@@ -36,32 +36,32 @@ public:
 
   void SetUp()override
   {
-    romea_obs_position.Y(romea::ObservationPosition::POSITION_X) = 1;
-    romea_obs_position.Y(romea::ObservationPosition::POSITION_Y) = 2;
+    romea_obs_position.Y(romea::core::ObservationPosition::POSITION_X) = 1;
+    romea_obs_position.Y(romea::core::ObservationPosition::POSITION_Y) = 2;
     romea_obs_position.levelArm.x() = 4;
     romea_obs_position.levelArm.y() = 5;
     romea_obs_position.levelArm.z() = 6;
     fillEigenCovariance(romea_obs_position.R());
-    romea::to_ros_msg(stamp, frame_id, romea_obs_position, romea_obs_position_msg);
+    romea::ros2::to_ros_msg(stamp, frame_id, romea_obs_position, romea_obs_position_msg);
   }
 
   rclcpp::Time stamp;
   std::string frame_id;
-  romea::ObservationPosition romea_obs_position;
+  romea::core::ObservationPosition romea_obs_position;
   romea_localisation_msgs::msg::ObservationPosition2DStamped romea_obs_position_msg;
 };
 
 //-----------------------------------------------------------------------------
 TEST_F(TestObsPositionConversion, fromRomeato_ros_msg)
 {
-  EXPECT_EQ(romea::extract_time(romea_obs_position_msg).nanoseconds(), stamp.nanoseconds());
+  EXPECT_EQ(romea::ros2::extract_time(romea_obs_position_msg).nanoseconds(), stamp.nanoseconds());
   EXPECT_STREQ(romea_obs_position_msg.header.frame_id.c_str(), frame_id.c_str());
   EXPECT_DOUBLE_EQ(
     romea_obs_position_msg.observation_position.position.x,
-    romea_obs_position.Y(romea::ObservationPosition::POSITION_X));
+    romea_obs_position.Y(romea::core::ObservationPosition::POSITION_X));
   EXPECT_DOUBLE_EQ(
     romea_obs_position_msg.observation_position.position.y,
-    romea_obs_position.Y(romea::ObservationPosition::POSITION_Y));
+    romea_obs_position.Y(romea::core::ObservationPosition::POSITION_Y));
 
   isSame(romea_obs_position_msg.observation_position.position.covariance, romea_obs_position.R());
 }
@@ -69,14 +69,14 @@ TEST_F(TestObsPositionConversion, fromRomeato_ros_msg)
 //-----------------------------------------------------------------------------
 TEST_F(TestObsPositionConversion, fromRosMsgtoObs)
 {
-  romea::ObservationPosition romea_obs_position_bis;
-  romea::extract_obs(romea_obs_position_msg, romea_obs_position_bis);
+  romea::core::ObservationPosition romea_obs_position_bis;
+  romea::ros2::extract_obs(romea_obs_position_msg, romea_obs_position_bis);
   EXPECT_DOUBLE_EQ(
-    romea_obs_position_bis.Y(romea::ObservationPosition::POSITION_X),
-    romea_obs_position.Y(romea::ObservationPosition::POSITION_X));
+    romea_obs_position_bis.Y(romea::core::ObservationPosition::POSITION_X),
+    romea_obs_position.Y(romea::core::ObservationPosition::POSITION_X));
   EXPECT_DOUBLE_EQ(
-    romea_obs_position_bis.Y(romea::ObservationPosition::POSITION_Y),
-    romea_obs_position.Y(romea::ObservationPosition::POSITION_Y));
+    romea_obs_position_bis.Y(romea::core::ObservationPosition::POSITION_Y),
+    romea_obs_position.Y(romea::core::ObservationPosition::POSITION_Y));
   isSame(romea_obs_position_bis.R(), romea_obs_position.R());
 }
 
@@ -98,19 +98,19 @@ public:
     romea_position.position.x() = 1;
     romea_position.position.y() = 2;
     fillEigenCovariance(romea_position.covariance);
-    romea::to_ros_msg(stamp, frame_id, romea_position, romea_obs_position_msg);
+    romea::ros2::to_ros_msg(stamp, frame_id, romea_position, romea_obs_position_msg);
   }
 
   rclcpp::Time stamp;
   std::string frame_id;
-  romea::Position2D romea_position;
+  romea::core::Position2D romea_position;
   romea_localisation_msgs::msg::ObservationPosition2DStamped romea_obs_position_msg;
 };
 
 //-----------------------------------------------------------------------------
 TEST_F(TestPositionConversion, fromRomeato_ros_msg)
 {
-  EXPECT_EQ(romea::extract_time(romea_obs_position_msg).nanoseconds(), stamp.nanoseconds());
+  EXPECT_EQ(romea::ros2::extract_time(romea_obs_position_msg).nanoseconds(), stamp.nanoseconds());
   EXPECT_STREQ(romea_obs_position_msg.header.frame_id.c_str(), frame_id.c_str());
   EXPECT_DOUBLE_EQ(
     romea_obs_position_msg.observation_position.position.x,

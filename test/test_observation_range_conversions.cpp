@@ -45,19 +45,19 @@ public:
     romea_obs_range.responderPosition.x() = 4;
     romea_obs_range.responderPosition.y() = 5;
     romea_obs_range.responderPosition.z() = 6;
-    romea::to_ros_msg(stamp, frame_id, romea_obs_range, ros_obs_range_msg);
+    romea::ros2::to_ros_msg(stamp, frame_id, romea_obs_range, ros_obs_range_msg);
   }
 
   rclcpp::Time stamp;
   std::string frame_id;
-  romea::ObservationRange romea_obs_range;
+  romea::core::ObservationRange romea_obs_range;
   romea_localisation_msgs::msg::ObservationRangeStamped ros_obs_range_msg;
 };
 
 //-----------------------------------------------------------------------------
 TEST_F(TestObsRangeConversion, fromRomeato_ros_msg)
 {
-  EXPECT_EQ(romea::extract_time(ros_obs_range_msg).nanoseconds(), stamp.nanoseconds());
+  EXPECT_EQ(romea::ros2::extract_time(ros_obs_range_msg).nanoseconds(), stamp.nanoseconds());
   EXPECT_STREQ(ros_obs_range_msg.header.frame_id.c_str(), frame_id.c_str());
   EXPECT_DOUBLE_EQ(ros_obs_range_msg.observation_range.range, romea_obs_range.Y());
   EXPECT_DOUBLE_EQ(ros_obs_range_msg.observation_range.range_std, std::sqrt(romea_obs_range.R()));
@@ -84,8 +84,8 @@ TEST_F(TestObsRangeConversion, fromRomeato_ros_msg)
 //-----------------------------------------------------------------------------
 TEST_F(TestObsRangeConversion, fromRosMsgtoObs)
 {
-  romea::ObservationRange romea_obs_range_bis;
-  romea::extract_obs(ros_obs_range_msg, romea_obs_range_bis);
+  romea::core::ObservationRange romea_obs_range_bis;
+  romea::ros2::extract_obs(ros_obs_range_msg, romea_obs_range_bis);
   EXPECT_DOUBLE_EQ(romea_obs_range_bis.Y(), romea_obs_range.Y());
   EXPECT_DOUBLE_EQ(romea_obs_range_bis.R(), romea_obs_range.R());
   EXPECT_DOUBLE_EQ(

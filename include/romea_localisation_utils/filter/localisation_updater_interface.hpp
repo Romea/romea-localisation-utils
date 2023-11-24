@@ -29,6 +29,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 template<typename Filter_, typename Updater_, typename Msg>
 class LocalisationUpdaterInterface : public LocalisationUpdaterInterfaceBase
@@ -49,9 +51,9 @@ public:
 
   void register_filter(std::shared_ptr<Filter> filter);
 
-  bool heartbeat_callback(const Duration & duration) override;
+  bool heartbeat_callback(const core::Duration & duration) override;
 
-  DiagnosticReport get_report() override;
+  core::DiagnosticReport get_report() override;
 
 private:
   std::shared_ptr<Filter> filter_;
@@ -104,7 +106,7 @@ template<class Filter_, class Updater_, class Msg>
 void LocalisationUpdaterInterface<Filter_, Updater_, Msg>::process_message(
   typename Msg::ConstSharedPtr msg)
 {
-  Duration duration = extract_duration(*msg);
+  core::Duration duration = extract_duration(*msg);
 
   Observation observation = extract_obs<Observation>(*msg);
 
@@ -122,14 +124,14 @@ void LocalisationUpdaterInterface<Filter_, Updater_, Msg>::process_message(
 //-----------------------------------------------------------------------------
 template<class Filter_, class Updater_, class Msg>
 bool LocalisationUpdaterInterface<Filter_, Updater_, Msg>::heartbeat_callback(
-  const Duration & duration)
+  const core::Duration & duration)
 {
   return updater_->heartBeatCallback(duration);
 }
 
 //-----------------------------------------------------------------------------
 template<class Filter_, class Updater_, class Msg>
-DiagnosticReport LocalisationUpdaterInterface<Filter_, Updater_, Msg>::get_report()
+core::DiagnosticReport LocalisationUpdaterInterface<Filter_, Updater_, Msg>::get_report()
 {
   return updater_->getReport();
 }
@@ -149,6 +151,7 @@ std::unique_ptr<UpdaterInterface> make_updater_interface(
 }
 
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif  // ROMEA_LOCALISATION_UTILS__FILTER__LOCALISATION_UPDATER_INTERFACE_HPP_

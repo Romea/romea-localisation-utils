@@ -38,19 +38,20 @@ public:
   {
     romea_obs_angular_speed.Y() = 1;
     romea_obs_angular_speed.R() = 4;
-    romea::to_ros_msg(stamp, frame_id, romea_obs_angular_speed, ros_obs_angular_speed_msg);
+    romea::ros2::to_ros_msg(stamp, frame_id, romea_obs_angular_speed, ros_obs_angular_speed_msg);
   }
 
   rclcpp::Time stamp;
   std::string frame_id;
-  romea::ObservationAngularSpeed romea_obs_angular_speed;
+  romea::core::ObservationAngularSpeed romea_obs_angular_speed;
   romea_localisation_msgs::msg::ObservationAngularSpeedStamped ros_obs_angular_speed_msg;
 };
 
 //-----------------------------------------------------------------------------
 TEST_F(TestObsAngularSpeedConversion, fromRomeato_ros_msg)
 {
-  EXPECT_EQ(romea::extract_time(ros_obs_angular_speed_msg).nanoseconds(), stamp.nanoseconds());
+  EXPECT_EQ(
+    romea::ros2::extract_time(ros_obs_angular_speed_msg).nanoseconds(), stamp.nanoseconds());
   EXPECT_STREQ(ros_obs_angular_speed_msg.header.frame_id.c_str(), frame_id.c_str());
   EXPECT_DOUBLE_EQ(
     ros_obs_angular_speed_msg.observation_angular_speed.velocity,
@@ -63,8 +64,8 @@ TEST_F(TestObsAngularSpeedConversion, fromRomeato_ros_msg)
 //-----------------------------------------------------------------------------
 TEST_F(TestObsAngularSpeedConversion, fromRosMsgtoObs)
 {
-  romea::ObservationAngularSpeed romea_obs_angular_speed_bis;
-  romea::extract_obs(ros_obs_angular_speed_msg, romea_obs_angular_speed_bis);
+  romea::core::ObservationAngularSpeed romea_obs_angular_speed_bis;
+  romea::ros2::extract_obs(ros_obs_angular_speed_msg, romea_obs_angular_speed_bis);
 
   EXPECT_DOUBLE_EQ(romea_obs_angular_speed_bis.Y(), romea_obs_angular_speed.Y());
   EXPECT_DOUBLE_EQ(romea_obs_angular_speed_bis.R(), romea_obs_angular_speed.R());

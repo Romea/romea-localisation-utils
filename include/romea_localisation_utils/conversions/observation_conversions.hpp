@@ -27,6 +27,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 template<typename ObservationType, typename MessageType>
 ObservationType extract_obs(const MessageType & msg)
@@ -36,6 +38,7 @@ ObservationType extract_obs(const MessageType & msg)
   return observation;
 }
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif  // ROMEA_LOCALISATION_UTILS__CONVERSIONS__OBSERVATION_CONVERSIONS_HPP_

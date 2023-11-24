@@ -26,6 +26,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 //-----------------------------------------------------------------------------
 template<class Updater>
@@ -36,7 +38,7 @@ std::unique_ptr<Updater> make_kalman_exteroceptive_updater(
   return std::make_unique<Updater>(
     updater_name,
     get_updater_minimal_rate(node, updater_name),
-    toTriggerMode(get_updater_trigger_mode(node, updater_name)),
+    core::toTriggerMode(get_updater_trigger_mode(node, updater_name)),
     get_updater_mahalanobis_distance_rejection_threshold(node, updater_name),
     get_log_filename(node, updater_name));
 }
@@ -50,19 +52,19 @@ std::unique_ptr<Updater> make_particle_exteroceptive_updater(
   return std::make_unique<Updater>(
     updater_name,
     get_updater_minimal_rate(node, updater_name),
-    toTriggerMode(get_updater_trigger_mode(node, updater_name)),
+    core::toTriggerMode(get_updater_trigger_mode(node, updater_name)),
     get_updater_mahalanobis_distance_rejection_threshold(node, updater_name),
     get_filter_number_of_particles(node),
     get_log_filename(node, updater_name));
 }
 
 //-----------------------------------------------------------------------------
-template<class Updater, FilterType FilterType_>
+template<class Updater, core::FilterType FilterType_>
 std::unique_ptr<Updater> make_exteroceptive_updater(
   std::shared_ptr<rclcpp::Node> & node,
   const std::string & updater_name)
 {
-  if constexpr (FilterType_ == KALMAN) {
+  if constexpr (FilterType_ == core::KALMAN) {
     return make_kalman_exteroceptive_updater<Updater>(node, updater_name);
   } else {
     return make_particle_exteroceptive_updater<Updater>(node, updater_name);
@@ -84,7 +86,7 @@ template<class Predictor>
 std::unique_ptr<Predictor> make_kalman_predictor(std::shared_ptr<rclcpp::Node> & node)
 {
   return std::make_unique<Predictor>(
-    durationFromSecond(get_predictor_maximal_dead_reckoning_elapsed_time(node)),
+    core::durationFromSecond(get_predictor_maximal_dead_reckoning_elapsed_time(node)),
     get_predictor_maximal_dead_reckoning_travelled_distance(node),
     get_predictor_maximal_circular_error_probable(node));
 }
@@ -94,17 +96,17 @@ template<class Predictor>
 std::unique_ptr<Predictor> make_particle_predictor(std::shared_ptr<rclcpp::Node> & node)
 {
   return std::make_unique<Predictor>(
-    durationFromSecond(get_predictor_maximal_dead_reckoning_elapsed_time(node)),
+    core::durationFromSecond(get_predictor_maximal_dead_reckoning_elapsed_time(node)),
     get_predictor_maximal_dead_reckoning_travelled_distance(node),
     get_predictor_maximal_circular_error_probable(node),
     get_filter_number_of_particles(node));
 }
 
 //-----------------------------------------------------------------------------
-template<class Predictor, FilterType FilterType_>
+template<class Predictor, core::FilterType FilterType_>
 std::unique_ptr<Predictor> make_predictor(std::shared_ptr<rclcpp::Node> & node)
 {
-  if constexpr (FilterType_ == KALMAN) {
+  if constexpr (FilterType_ == core::KALMAN) {
     return make_kalman_predictor<Predictor>(node);
   } else {
     return make_particle_predictor<Predictor>(node);
@@ -128,10 +130,10 @@ std::unique_ptr<Filter> make_particle_filter(std::shared_ptr<rclcpp::Node> node)
 }
 
 //-----------------------------------------------------------------------------
-template<class Filter, FilterType FilterType_>
+template<class Filter, core::FilterType FilterType_>
 std::unique_ptr<Filter> make_filter(std::shared_ptr<rclcpp::Node> node)
 {
-  if constexpr (FilterType_ == KALMAN) {
+  if constexpr (FilterType_ == core::KALMAN) {
     return make_kalman_filter<Filter>(node);
   } else {
     return make_particle_filter<Filter>(node);
@@ -139,7 +141,7 @@ std::unique_ptr<Filter> make_filter(std::shared_ptr<rclcpp::Node> node)
 }
 
 //-----------------------------------------------------------------------------
-template<class Filter, class Predictor, FilterType FilterType_>
+template<class Filter, class Predictor, core::FilterType FilterType_>
 std::unique_ptr<Filter> make_filter(std::shared_ptr<rclcpp::Node> node)
 {
   auto filter = make_filter<Filter, FilterType_>(node);
@@ -164,16 +166,17 @@ std::unique_ptr<Results> make_particle_results(std::shared_ptr<rclcpp::Node> nod
 }
 
 //-----------------------------------------------------------------------------
-template<class Results, FilterType FilterType_>
+template<class Results, core::FilterType FilterType_>
 std::unique_ptr<Results> make_results(std::shared_ptr<rclcpp::Node> node)
 {
-  if constexpr (FilterType_ == KALMAN) {
+  if constexpr (FilterType_ == core::KALMAN) {
     return make_kalman_results<Results>(node);
   } else {
     return make_particle_results<Results>(node);
   }
 }
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif  // ROMEA_LOCALISATION_UTILS__FILTER__LOCALISATION_FACTORY_HPP_

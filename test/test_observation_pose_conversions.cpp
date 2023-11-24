@@ -37,36 +37,36 @@ public:
 
   void SetUp()override
   {
-    romea_obs_pose.Y(romea::ObservationPose::POSITION_X) = 1;
-    romea_obs_pose.Y(romea::ObservationPose::POSITION_Y) = 2;
-    romea_obs_pose.Y(romea::ObservationPose::ORIENTATION_Z) = 3;
+    romea_obs_pose.Y(romea::core::ObservationPose::POSITION_X) = 1;
+    romea_obs_pose.Y(romea::core::ObservationPose::POSITION_Y) = 2;
+    romea_obs_pose.Y(romea::core::ObservationPose::ORIENTATION_Z) = 3;
     romea_obs_pose.levelArm.x() = 4;
     romea_obs_pose.levelArm.y() = 5;
     romea_obs_pose.levelArm.z() = 6;
     fillEigenCovariance(romea_obs_pose.R());
-    romea::to_ros_msg(stamp, frame_id, romea_obs_pose, romea_obs_pose_msg);
+    romea::ros2::to_ros_msg(stamp, frame_id, romea_obs_pose, romea_obs_pose_msg);
   }
 
   rclcpp::Time stamp;
   std::string frame_id;
-  romea::ObservationPose romea_obs_pose;
+  romea::core::ObservationPose romea_obs_pose;
   romea_localisation_msgs::msg::ObservationPose2DStamped romea_obs_pose_msg;
 };
 
 //-----------------------------------------------------------------------------
 TEST_F(TestObsPoseConversion, fromRomeato_ros_msg)
 {
-  EXPECT_EQ(romea::extract_time(romea_obs_pose_msg).nanoseconds(), stamp.nanoseconds());
+  EXPECT_EQ(romea::ros2::extract_time(romea_obs_pose_msg).nanoseconds(), stamp.nanoseconds());
   EXPECT_STREQ(romea_obs_pose_msg.header.frame_id.c_str(), frame_id.c_str());
   EXPECT_DOUBLE_EQ(
     romea_obs_pose_msg.observation_pose.pose.position.x,
-    romea_obs_pose.Y(romea::ObservationPose::POSITION_X));
+    romea_obs_pose.Y(romea::core::ObservationPose::POSITION_X));
   EXPECT_DOUBLE_EQ(
     romea_obs_pose_msg.observation_pose.pose.position.y,
-    romea_obs_pose.Y(romea::ObservationPose::POSITION_Y));
+    romea_obs_pose.Y(romea::core::ObservationPose::POSITION_Y));
   EXPECT_DOUBLE_EQ(
     romea_obs_pose_msg.observation_pose.pose.yaw,
-    romea_obs_pose.Y(romea::ObservationPose::ORIENTATION_Z));
+    romea_obs_pose.Y(romea::core::ObservationPose::ORIENTATION_Z));
   EXPECT_DOUBLE_EQ(
     romea_obs_pose_msg.observation_pose.level_arm.x,
     romea_obs_pose.levelArm.x());
@@ -83,17 +83,17 @@ TEST_F(TestObsPoseConversion, fromRomeato_ros_msg)
 //-----------------------------------------------------------------------------
 TEST_F(TestObsPoseConversion, fromRosMsgtoObs)
 {
-  romea::ObservationPose romea_obs_pose_bis;
-  romea::extract_obs(romea_obs_pose_msg, romea_obs_pose_bis);
+  romea::core::ObservationPose romea_obs_pose_bis;
+  romea::ros2::extract_obs(romea_obs_pose_msg, romea_obs_pose_bis);
   EXPECT_DOUBLE_EQ(
-    romea_obs_pose_bis.Y(romea::ObservationPose::POSITION_X),
-    romea_obs_pose.Y(romea::ObservationPose::POSITION_X));
+    romea_obs_pose_bis.Y(romea::core::ObservationPose::POSITION_X),
+    romea_obs_pose.Y(romea::core::ObservationPose::POSITION_X));
   EXPECT_DOUBLE_EQ(
-    romea_obs_pose_bis.Y(romea::ObservationPose::POSITION_Y),
-    romea_obs_pose.Y(romea::ObservationPose::POSITION_Y));
+    romea_obs_pose_bis.Y(romea::core::ObservationPose::POSITION_Y),
+    romea_obs_pose.Y(romea::core::ObservationPose::POSITION_Y));
   EXPECT_DOUBLE_EQ(
-    romea_obs_pose_bis.Y(romea::ObservationPose::ORIENTATION_Z),
-    romea_obs_pose.Y(romea::ObservationPose::ORIENTATION_Z));
+    romea_obs_pose_bis.Y(romea::core::ObservationPose::ORIENTATION_Z),
+    romea_obs_pose.Y(romea::core::ObservationPose::ORIENTATION_Z));
   EXPECT_DOUBLE_EQ(
     romea_obs_pose_bis.levelArm.x(),
     romea_obs_pose.levelArm.x());
@@ -126,19 +126,19 @@ public:
     romea_pose.position.y() = 2;
     romea_pose.yaw = 3;
     fillEigenCovariance(romea_pose.covariance);
-    romea::to_ros_msg(stamp, frame_id, romea_pose, romea_obs_pose_msg);
+    romea::ros2::to_ros_msg(stamp, frame_id, romea_pose, romea_obs_pose_msg);
   }
 
   rclcpp::Time stamp;
   std::string frame_id;
-  romea::Pose2D romea_pose;
+  romea::core::Pose2D romea_pose;
   romea_localisation_msgs::msg::ObservationPose2DStamped romea_obs_pose_msg;
 };
 
 //-----------------------------------------------------------------------------
 TEST_F(TestPoseConversion, fromRomeato_ros_msg)
 {
-  EXPECT_EQ(romea::extract_time(romea_obs_pose_msg).nanoseconds(), stamp.nanoseconds());
+  EXPECT_EQ(romea::ros2::extract_time(romea_obs_pose_msg).nanoseconds(), stamp.nanoseconds());
   EXPECT_STREQ(romea_obs_pose_msg.header.frame_id.c_str(), frame_id.c_str());
   EXPECT_DOUBLE_EQ(romea_obs_pose_msg.observation_pose.pose.position.x, romea_pose.position.x());
   EXPECT_DOUBLE_EQ(romea_obs_pose_msg.observation_pose.pose.position.y, romea_pose.position.y());

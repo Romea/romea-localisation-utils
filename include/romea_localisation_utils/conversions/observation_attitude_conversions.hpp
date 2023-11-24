@@ -25,21 +25,24 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 void to_ros_msg(
-  const ObservationAttitude & observation,
+  const core::ObservationAttitude & observation,
   romea_localisation_msgs::msg::ObservationAttitude & msg);
 
 void to_ros_msg(
   const rclcpp::Time & stamp,
   const std::string & frame_id,
-  const ObservationAttitude & observation,
+  const core::ObservationAttitude & observation,
   romea_localisation_msgs::msg::ObservationAttitudeStamped & msg);
 
 void extract_obs(
   const romea_localisation_msgs::msg::ObservationAttitudeStamped & msg,
-  ObservationAttitude & observation);
+  core::ObservationAttitude & observation);
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif  // ROMEA_LOCALISATION_UTILS__CONVERSIONS__OBSERVATION_ATTITUDE_CONVERSIONS_HPP_

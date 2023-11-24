@@ -41,7 +41,7 @@ public:
     fillMsgCovariance(ros_obs_linear_speeds_msg.observation_twist.twist.covariance);
   }
 
-  romea::ObservationLinearSpeeds romea_obs_linear_speeds;
+  romea::core::ObservationLinearSpeeds romea_obs_linear_speeds;
   romea_localisation_msgs::msg::ObservationTwist2DStamped ros_obs_linear_speeds_msg;
 };
 
@@ -49,33 +49,33 @@ public:
 //-----------------------------------------------------------------------------
 TEST_F(TestObsLinearSpeedsConversion, fromRosMsgtoObs)
 {
-  romea::ObservationLinearSpeeds romea_obs_linear_speeds;
-  romea::extract_obs(ros_obs_linear_speeds_msg, romea_obs_linear_speeds);
+  romea::core::ObservationLinearSpeeds romea_obs_linear_speeds;
+  romea::ros2::extract_obs(ros_obs_linear_speeds_msg, romea_obs_linear_speeds);
   EXPECT_DOUBLE_EQ(
-    romea_obs_linear_speeds.Y(romea::ObservationLinearSpeeds::LINEAR_SPEED_X_BODY),
+    romea_obs_linear_speeds.Y(romea::core::ObservationLinearSpeeds::LINEAR_SPEED_X_BODY),
     ros_obs_linear_speeds_msg.observation_twist.twist.linear_speeds.x);
   EXPECT_DOUBLE_EQ(
-    romea_obs_linear_speeds.Y(romea::ObservationLinearSpeeds::LINEAR_SPEED_Y_BODY),
+    romea_obs_linear_speeds.Y(romea::core::ObservationLinearSpeeds::LINEAR_SPEED_Y_BODY),
     ros_obs_linear_speeds_msg.observation_twist.twist.linear_speeds.y);
   EXPECT_DOUBLE_EQ(
     romea_obs_linear_speeds.R(
-      romea::ObservationLinearSpeeds::LINEAR_SPEED_X_BODY,
-      romea::ObservationLinearSpeeds::LINEAR_SPEED_X_BODY),
+      romea::core::ObservationLinearSpeeds::LINEAR_SPEED_X_BODY,
+      romea::core::ObservationLinearSpeeds::LINEAR_SPEED_X_BODY),
     ros_obs_linear_speeds_msg.observation_twist.twist.covariance[0]);
   EXPECT_DOUBLE_EQ(
     romea_obs_linear_speeds.R(
-      romea::ObservationLinearSpeeds::LINEAR_SPEED_X_BODY,
-      romea::ObservationLinearSpeeds::LINEAR_SPEED_Y_BODY),
+      romea::core::ObservationLinearSpeeds::LINEAR_SPEED_X_BODY,
+      romea::core::ObservationLinearSpeeds::LINEAR_SPEED_Y_BODY),
     ros_obs_linear_speeds_msg.observation_twist.twist.covariance[1]);
   EXPECT_DOUBLE_EQ(
     romea_obs_linear_speeds.R(
-      romea::ObservationLinearSpeeds::LINEAR_SPEED_Y_BODY,
-      romea::ObservationLinearSpeeds::LINEAR_SPEED_X_BODY),
+      romea::core::ObservationLinearSpeeds::LINEAR_SPEED_Y_BODY,
+      romea::core::ObservationLinearSpeeds::LINEAR_SPEED_X_BODY),
     ros_obs_linear_speeds_msg.observation_twist.twist.covariance[3]);
   EXPECT_DOUBLE_EQ(
     romea_obs_linear_speeds.R(
-      romea::ObservationLinearSpeeds::LINEAR_SPEED_Y_BODY,
-      romea::ObservationLinearSpeeds::LINEAR_SPEED_Y_BODY),
+      romea::core::ObservationLinearSpeeds::LINEAR_SPEED_Y_BODY,
+      romea::core::ObservationLinearSpeeds::LINEAR_SPEED_Y_BODY),
     ros_obs_linear_speeds_msg.observation_twist.twist.covariance[4]);
 }
 

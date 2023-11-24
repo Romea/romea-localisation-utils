@@ -44,7 +44,7 @@ public:
     fillMsgCovariance(ros_obs_linear_speed_msg.observation_twist.twist.covariance);
   }
 
-  romea::ObservationLinearSpeed romea_obs_linear_speed;
+  romea::core::ObservationLinearSpeed romea_obs_linear_speed;
   romea_localisation_msgs::msg::ObservationTwist2DStamped ros_obs_linear_speed_msg;
 };
 
@@ -52,8 +52,8 @@ public:
 //-----------------------------------------------------------------------------
 TEST_F(TestObsLinearSpeedConversion, fromRosMsgtoObs)
 {
-  romea::ObservationLinearSpeed romea_obs_linear_speed;
-  romea::extract_obs(ros_obs_linear_speed_msg, romea_obs_linear_speed);
+  romea::core::ObservationLinearSpeed romea_obs_linear_speed;
+  romea::ros2::extract_obs(ros_obs_linear_speed_msg, romea_obs_linear_speed);
   EXPECT_DOUBLE_EQ(
     romea_obs_linear_speed.Y(),
     ros_obs_linear_speed_msg.observation_twist.twist.linear_speeds.x);

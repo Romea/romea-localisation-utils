@@ -37,36 +37,36 @@ public:
 
   void SetUp()override
   {
-    romea_obs_twist.Y(romea::ObservationTwist::LINEAR_SPEED_X_BODY) = 1;
-    romea_obs_twist.Y(romea::ObservationTwist::LINEAR_SPEED_Y_BODY) = 2;
-    romea_obs_twist.Y(romea::ObservationTwist::ANGULAR_SPEED_Z_BODY) = 3;
+    romea_obs_twist.Y(romea::core::ObservationTwist::LINEAR_SPEED_X_BODY) = 1;
+    romea_obs_twist.Y(romea::core::ObservationTwist::LINEAR_SPEED_Y_BODY) = 2;
+    romea_obs_twist.Y(romea::core::ObservationTwist::ANGULAR_SPEED_Z_BODY) = 3;
     romea_obs_twist.levelArm.x() = 4;
     romea_obs_twist.levelArm.y() = 5;
     romea_obs_twist.levelArm.z() = 6;
     fillEigenCovariance(romea_obs_twist.R());
-    romea::to_ros_msg(stamp, frame_id, romea_obs_twist, romea_obs_twist_msg);
+    romea::ros2::to_ros_msg(stamp, frame_id, romea_obs_twist, romea_obs_twist_msg);
   }
 
   rclcpp::Time stamp;
   std::string frame_id;
-  romea::ObservationTwist romea_obs_twist;
+  romea::core::ObservationTwist romea_obs_twist;
   romea_localisation_msgs::msg::ObservationTwist2DStamped romea_obs_twist_msg;
 };
 
 //-----------------------------------------------------------------------------
 TEST_F(TestObsTwistConversion, fromRomeato_ros_msg)
 {
-  EXPECT_EQ(romea::extract_time(romea_obs_twist_msg).nanoseconds(), stamp.nanoseconds());
+  EXPECT_EQ(romea::ros2::extract_time(romea_obs_twist_msg).nanoseconds(), stamp.nanoseconds());
   EXPECT_STREQ(romea_obs_twist_msg.header.frame_id.c_str(), frame_id.c_str());
   EXPECT_DOUBLE_EQ(
     romea_obs_twist_msg.observation_twist.twist.linear_speeds.x,
-    romea_obs_twist.Y(romea::ObservationTwist::LINEAR_SPEED_X_BODY));
+    romea_obs_twist.Y(romea::core::ObservationTwist::LINEAR_SPEED_X_BODY));
   EXPECT_DOUBLE_EQ(
     romea_obs_twist_msg.observation_twist.twist.linear_speeds.y,
-    romea_obs_twist.Y(romea::ObservationTwist::LINEAR_SPEED_Y_BODY));
+    romea_obs_twist.Y(romea::core::ObservationTwist::LINEAR_SPEED_Y_BODY));
   EXPECT_DOUBLE_EQ(
     romea_obs_twist_msg.observation_twist.twist.angular_speed,
-    romea_obs_twist.Y(romea::ObservationTwist::ANGULAR_SPEED_Z_BODY));
+    romea_obs_twist.Y(romea::core::ObservationTwist::ANGULAR_SPEED_Z_BODY));
   EXPECT_DOUBLE_EQ(
     romea_obs_twist_msg.observation_twist.level_arm.x,
     romea_obs_twist.levelArm.x());
@@ -82,17 +82,17 @@ TEST_F(TestObsTwistConversion, fromRomeato_ros_msg)
 //-----------------------------------------------------------------------------
 TEST_F(TestObsTwistConversion, fromRosMsgtoObs)
 {
-  romea::ObservationTwist romea_obs_twist_bis;
-  romea::extract_obs(romea_obs_twist_msg, romea_obs_twist_bis);
+  romea::core::ObservationTwist romea_obs_twist_bis;
+  romea::ros2::extract_obs(romea_obs_twist_msg, romea_obs_twist_bis);
   EXPECT_DOUBLE_EQ(
-    romea_obs_twist_bis.Y(romea::ObservationTwist::LINEAR_SPEED_X_BODY),
-    romea_obs_twist.Y(romea::ObservationTwist::LINEAR_SPEED_X_BODY));
+    romea_obs_twist_bis.Y(romea::core::ObservationTwist::LINEAR_SPEED_X_BODY),
+    romea_obs_twist.Y(romea::core::ObservationTwist::LINEAR_SPEED_X_BODY));
   EXPECT_DOUBLE_EQ(
-    romea_obs_twist_bis.Y(romea::ObservationTwist::LINEAR_SPEED_Y_BODY),
-    romea_obs_twist.Y(romea::ObservationTwist::LINEAR_SPEED_Y_BODY));
+    romea_obs_twist_bis.Y(romea::core::ObservationTwist::LINEAR_SPEED_Y_BODY),
+    romea_obs_twist.Y(romea::core::ObservationTwist::LINEAR_SPEED_Y_BODY));
   EXPECT_DOUBLE_EQ(
-    romea_obs_twist_bis.Y(romea::ObservationTwist::ANGULAR_SPEED_Z_BODY),
-    romea_obs_twist.Y(romea::ObservationTwist::ANGULAR_SPEED_Z_BODY));
+    romea_obs_twist_bis.Y(romea::core::ObservationTwist::ANGULAR_SPEED_Z_BODY),
+    romea_obs_twist.Y(romea::core::ObservationTwist::ANGULAR_SPEED_Z_BODY));
   EXPECT_DOUBLE_EQ(romea_obs_twist_bis.levelArm.x(), romea_obs_twist.levelArm.x());
   EXPECT_DOUBLE_EQ(romea_obs_twist_bis.levelArm.y(), romea_obs_twist.levelArm.y());
   EXPECT_DOUBLE_EQ(romea_obs_twist_bis.levelArm.z(), romea_obs_twist.levelArm.z());
@@ -118,19 +118,19 @@ public:
     romea_twist.linearSpeeds.y() = 2;
     romea_twist.angularSpeed = 3;
     fillEigenCovariance(romea_twist.covariance);
-    romea::to_ros_msg(stamp, frame_id, romea_twist, romea_obs_twist_msg);
+    romea::ros2::to_ros_msg(stamp, frame_id, romea_twist, romea_obs_twist_msg);
   }
 
   rclcpp::Time stamp;
   std::string frame_id;
-  romea::Twist2D romea_twist;
+  romea::core::Twist2D romea_twist;
   romea_localisation_msgs::msg::ObservationTwist2DStamped romea_obs_twist_msg;
 };
 
 //-----------------------------------------------------------------------------
 TEST_F(TestPoseConversion, fromRomeato_ros_msg)
 {
-  EXPECT_EQ(romea::extract_time(romea_obs_twist_msg).nanoseconds(), stamp.nanoseconds());
+  EXPECT_EQ(romea::ros2::extract_time(romea_obs_twist_msg).nanoseconds(), stamp.nanoseconds());
   EXPECT_STREQ(romea_obs_twist_msg.header.frame_id.c_str(), frame_id.c_str());
   EXPECT_DOUBLE_EQ(
     romea_obs_twist_msg.observation_twist.twist.linear_speeds.x,

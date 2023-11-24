@@ -26,6 +26,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 
 class LocalisationUpdaterInterfaceBase
@@ -33,11 +35,12 @@ class LocalisationUpdaterInterfaceBase
 public:
   LocalisationUpdaterInterfaceBase() {}
 
-  virtual bool heartbeat_callback(const Duration & duration) = 0;
+  virtual bool heartbeat_callback(const core::Duration & duration) = 0;
 
-  virtual DiagnosticReport get_report() = 0;
+  virtual core::DiagnosticReport get_report() = 0;
 };
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif  // ROMEA_LOCALISATION_UTILS__FILTER__LOCALISATION_UPDATER_INTERFACE_BASE_HPP_

@@ -16,13 +16,16 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 //-----------------------------------------------------------------------------
 void to_ros_msg(
-  const LocalisationFSMState & fsm_state,
+  const core::LocalisationFSMState & fsm_state,
   romea_localisation_msgs::msg::LocalisationStatus & msg)
 {
   msg.status = static_cast<unsigned int>(fsm_state);
 }
 
+}  // namespace ros2
 }  // namespace romea

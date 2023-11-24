@@ -39,19 +39,19 @@ public:
   {
     romea_obs_course.Y() = 1;
     romea_obs_course.R() = 4;
-    romea::to_ros_msg(stamp, frame_id, romea_obs_course, ros_obs_course_msg);
+    romea::ros2::to_ros_msg(stamp, frame_id, romea_obs_course, ros_obs_course_msg);
   }
 
   rclcpp::Time stamp;
   std::string frame_id;
-  romea::ObservationCourse romea_obs_course;
+  romea::core::ObservationCourse romea_obs_course;
   romea_localisation_msgs::msg::ObservationCourseStamped ros_obs_course_msg;
 };
 
 //-----------------------------------------------------------------------------
 TEST_F(TestObsCourseConversion, fromRomeato_ros_msg)
 {
-  EXPECT_EQ(romea::extract_time(ros_obs_course_msg).nanoseconds(), stamp.nanoseconds());
+  EXPECT_EQ(romea::ros2::extract_time(ros_obs_course_msg).nanoseconds(), stamp.nanoseconds());
   EXPECT_STREQ(ros_obs_course_msg.header.frame_id.c_str(), frame_id.c_str());
   EXPECT_DOUBLE_EQ(ros_obs_course_msg.observation_course.angle, romea_obs_course.Y());
   EXPECT_DOUBLE_EQ(ros_obs_course_msg.observation_course.std, std::sqrt(romea_obs_course.R()));
@@ -60,8 +60,8 @@ TEST_F(TestObsCourseConversion, fromRomeato_ros_msg)
 //-----------------------------------------------------------------------------
 TEST_F(TestObsCourseConversion, fromRosMsgtoObs)
 {
-  romea::ObservationCourse romea_obs_course_bis;
-  romea::extract_obs(ros_obs_course_msg, romea_obs_course_bis);
+  romea::core::ObservationCourse romea_obs_course_bis;
+  romea::ros2::extract_obs(ros_obs_course_msg, romea_obs_course_bis);
 
   EXPECT_DOUBLE_EQ(romea_obs_course_bis.Y(), romea_obs_course.Y());
   EXPECT_DOUBLE_EQ(romea_obs_course_bis.R(), romea_obs_course.R());
